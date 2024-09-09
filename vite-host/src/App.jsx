@@ -3,7 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import Button from 'remote/Button'
+import Button from 'webpack-remote/Button'
+import Input from 'webpack-remote/Input'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -31,6 +32,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
       <Button>123</Button>
+      <Input />
     </>
   )
 }

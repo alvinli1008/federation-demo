@@ -12,23 +12,25 @@ export default defineConfig({
       name: 'host',
       filename: 'remoteEntry.js',
       remotes: {
-        remote: 'http://127.0.0.1:8080/remoteEntry.js',
+        'webpack-remote': 'http://127.0.0.1:8080/remoteEntry.js',
         from: 'webpack'
       },
-      shared: [
-        {
-          react: {
-            singleton: true,
-            requiredVersion: dependencies['react']
-          }
-        },
-        {
-          'react-dom': {
-            singleton: true,
-            requiredVersion: dependencies['react-dom']
-          }
-        }
-      ]
+      // shared: [
+      //   {
+      //     react: {
+      //       singleton: true,
+      //       requiredVersion: dependencies['react'],
+      //       shareScope: 'default',
+      //     }
+      //   },
+      //   {
+      //     'react-dom': {
+      //       singleton: true,
+      //       requiredVersion: dependencies['react-dom'],
+      //       shareScope: 'default',
+      //     }
+      //   }
+      // ]
     })
   ],
   build: {
