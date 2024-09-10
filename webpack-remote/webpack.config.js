@@ -71,7 +71,6 @@ module.exports = {
       filename: 'remoteEntry.js',
       library: { type: 'var', name: 'webpack_remote' },
       exposes: {
-        './Button': './src/components/Button',
         './Input': './src/components/Input',
       },
       shared: [
@@ -79,20 +78,20 @@ module.exports = {
           react: {
             // eager: false,
             singleton: true, // only a single version of the shared module is allowed
-            // requiredVersion: deps.react,
-            // import: 'react', // the "react" package will be used a provided and fallback module
-            // shareKey: 'react16', // under this name the shared module will be placed in the share scope
-            // shareScope: 'default', // share scope with this name will be used
+            requiredVersion: deps.react,
+            import: 'react', // the "react" package will be used a provided and fallback module
+            shareKey: 'react16', // under this name the shared module will be placed in the share scope
+            shareScope: 'default', // share scope with this name will be used
           },
         },
         {
         'react-dom': {
           // eager: false,
           singleton: true, // only a single version of the shared module is allowed
-          // requiredVersion: deps['react-dom'],
-          // import: 'react-dom', // the "react" package will be used a provided and fallback module
-          // shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
-          // shareScope: 'default', // share scope with this name will be used
+          requiredVersion: deps['react-dom'],
+          import: 'react-dom', // the "react" package will be used a provided and fallback module
+          shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
+          shareScope: 'default', // share scope with this name will be used
         },
       }],
     }),
