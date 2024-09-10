@@ -1,5 +1,4 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -16,6 +15,7 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
     // library: {
     //   type: 'module' // 使用 module 类型的 library
     // },
@@ -29,7 +29,7 @@ module.exports = {
   //   outputModule: true, // 使用 outputModule
   // },
   resolve: {
-    // extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   target: 'web',
   module: {
@@ -66,34 +66,33 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin({
-      cleanStaleWebpackAssets: false,
-    }),
     new ModuleFederationPlugin({
       name: 'webpack_host',
       filename: 'remoteEntry.js',
       remotes: {
         'webpack_remote': "webpack_remote@http://localhost:8080/remoteEntry.js",
       },
-      shared: [
-        {
-          react: {
-            requiredVersion: deps.react,
-            import: 'react', // the "react" package will be used a provided and fallback module
-            shareKey: 'react16', // under this name the shared module will be placed in the share scope
-            shareScope: 'default', // share scope with this name will be used
-            singleton: true, // only a single version of the shared module is allowed
-          },
-        },
-        {
-        'react-dom': {
-          requiredVersion: deps['react-dom'],
-          import: 'react-dom', // the "react" package will be used a provided and fallback module
-          shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
-          shareScope: 'default', // share scope with this name will be used
-          singleton: true, // only a single version of the shared module is allowed
-        },
-      }],
+      // shared: [
+      //   {
+      //     react: {
+      //       // eager: false,
+      //       singleton: true, // only a single version of the shared module is allowed
+      //       // requiredVersion: deps.react,
+      //       // import: 'react', // the "react" package will be used a provided and fallback module
+      //       // shareKey: 'react16', // under this name the shared module will be placed in the share scope
+      //       // shareScope: 'default', // share scope with this name will be used
+      //     },
+      //   },
+      //   {
+      //   'react-dom': {
+      //     // eager: false,
+      //     singleton: true, // only a single version of the shared module is allowed
+      //     // requiredVersion: deps['react-dom'],
+      //     // import: 'react-dom', // the "react" package will be used a provided and fallback module
+      //     // shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
+      //     // shareScope: 'default', // share scope with this name will be used
+      //   },
+      // }],
     }),
     new HtmlWebpackPlugin({
       template: "./index.html",
@@ -103,11 +102,6 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     hot: true,
-    liveReload: false,
-    historyApiFallback: true,
-    client: {
-      overlay: false
-    },
     port: 8082,
     headers: {
       'Access-Control-Allow-Origin': '*',

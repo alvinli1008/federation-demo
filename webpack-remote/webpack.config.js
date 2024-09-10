@@ -1,5 +1,4 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -21,6 +20,7 @@ module.exports = {
     // },
     // publicPath: '/',
     // assetModuleFilename: 'static/[name].[hash:4].[ext]'
+    clean: true,
   },
   optimization: {
     minimize: false,
@@ -66,9 +66,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin({
-      cleanStaleWebpackAssets: false,
-    }),
     new ModuleFederationPlugin({
       name: 'webpack_remote',
       filename: 'remoteEntry.js',
@@ -81,21 +78,21 @@ module.exports = {
         {
           react: {
             // eager: false,
-            requiredVersion: deps.react,
-            import: 'react', // the "react" package will be used a provided and fallback module
-            shareKey: 'react16', // under this name the shared module will be placed in the share scope
-            shareScope: 'default', // share scope with this name will be used
             singleton: true, // only a single version of the shared module is allowed
+            // requiredVersion: deps.react,
+            // import: 'react', // the "react" package will be used a provided and fallback module
+            // shareKey: 'react16', // under this name the shared module will be placed in the share scope
+            // shareScope: 'default', // share scope with this name will be used
           },
         },
         {
         'react-dom': {
           // eager: false,
-          requiredVersion: deps['react-dom'],
-          import: 'react-dom', // the "react" package will be used a provided and fallback module
-          shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
-          shareScope: 'default', // share scope with this name will be used
           singleton: true, // only a single version of the shared module is allowed
+          // requiredVersion: deps['react-dom'],
+          // import: 'react-dom', // the "react" package will be used a provided and fallback module
+          // shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
+          // shareScope: 'default', // share scope with this name will be used
         },
       }],
     }),
@@ -107,12 +104,7 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     hot: true,
-    liveReload: false,
-    historyApiFallback: true,
-    client: {
-      overlay: false
-    },
-    port: 8080,
+    port: 8081,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
