@@ -29,7 +29,7 @@ module.exports = {
   //   outputModule: true, // 使用 outputModule
   // },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    // extensions: ['.js', '.jsx'],
   },
   target: 'web',
   module: {
@@ -50,7 +50,7 @@ module.exports = {
         use: [
           {
             loader: 'style-loader',
-            options: { attributes: { class: 'webpack-remote-css' } }
+            options: { attributes: { class: 'webpack-host-css' } }
           },
           {
             loader: 'css-loader',
@@ -70,17 +70,14 @@ module.exports = {
       cleanStaleWebpackAssets: false,
     }),
     new ModuleFederationPlugin({
-      name: 'webpack_remote',
+      name: 'webpack_host',
       filename: 'remoteEntry.js',
-      library: { type: 'var', name: 'webpack_remote' },
-      exposes: {
-        './Button': './src/components/Button',
-        './Input': './src/components/Input',
+      remotes: {
+        'webpack_remote': "webpack_remote@http://localhost:8080/remoteEntry.js",
       },
       shared: [
         {
           react: {
-            // eager: false,
             requiredVersion: deps.react,
             import: 'react', // the "react" package will be used a provided and fallback module
             shareKey: 'react16', // under this name the shared module will be placed in the share scope
@@ -90,7 +87,6 @@ module.exports = {
         },
         {
         'react-dom': {
-          // eager: false,
           requiredVersion: deps['react-dom'],
           import: 'react-dom', // the "react" package will be used a provided and fallback module
           shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
@@ -112,7 +108,7 @@ module.exports = {
     client: {
       overlay: false
     },
-    port: 8080,
+    port: 8082,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
