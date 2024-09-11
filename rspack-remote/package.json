@@ -1,0 +1,28 @@
+{
+  "name": "rspack-remote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development rspack serve",
+    "build": "cross-env NODE_ENV=production rspack build",
+    "serve": "cross-env NODE_ENV=production rspack serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@module-federation/enhanced": "^0.6.3",
+    "@rsbuild/plugin-react": "^1.0.1",
+    "@rspack/cli": "^1.0.4",
+    "@rspack/core": "^1.0.4",
+    "@rspack/plugin-react-refresh": "^1.0.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "cross-env": "^7.0.3",
+    "react-refresh": "^0.14.2"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

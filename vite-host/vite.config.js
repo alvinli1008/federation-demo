@@ -12,10 +12,14 @@ export default defineConfig({
       name: 'host',
       filename: 'remoteEntry.js',
       remotes: {
-        'webpack_remote': {
+        // 'webpack_remote': {
+        //   external: 'http://localhost:8080/remoteEntry.js',
+        //   format: 'var',
+        // },
+        'rspack_remote': {
           external: 'http://localhost:8080/remoteEntry.js',
           format: 'var',
-        },
+        }
       },
       // shared: [
       //   {

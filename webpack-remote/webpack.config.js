@@ -23,7 +23,7 @@ module.exports = {
     clean: true,
   },
   optimization: {
-    minimize: false,
+    // minimize: false,
   },
   // experiments: {
   //   outputModule: true, // 使用 outputModule
@@ -76,12 +76,14 @@ module.exports = {
       shared: [
         {
           react: {
-            // eager: false,
-            singleton: true, // only a single version of the shared module is allowed
-            requiredVersion: deps.react,
-            import: 'react', // the "react" package will be used a provided and fallback module
-            shareKey: 'react16', // under this name the shared module will be placed in the share scope
-            shareScope: 'default', // share scope with this name will be used
+            // eager: false, // 则在应用程序启动时立即加载共享模块，而不是按需加载。
+            singleton: true, // 如果设置为 true，则确保共享模块的单例实例。
+            requiredVersion: deps.react, // 指定所需的模块版本。如果版本不匹配，则共享模块不会被加载。
+            import: 'react', // 指定要共享的模块名称。
+            shareKey: 'react16', // 在共享作用域中使用的键名。默认情况下，它是模块的名称。
+            shareScope: 'default', // 共享作用域的名称。默认是 'default'。
+            strictVersion: false, // 如果设置为 true，则要求共享模块的版本严格匹配。
+            // version: deps.react, // 指定模块的版本。
           },
         },
         {
@@ -92,6 +94,8 @@ module.exports = {
           import: 'react-dom', // the "react" package will be used a provided and fallback module
           shareKey: 'react-dom16', // under this name the shared module will be placed in the share scope
           shareScope: 'default', // share scope with this name will be used
+          strictVersion: false, // 如果设置为 true，则要求共享模块的版本严格匹配。
+          // version: deps.react, // 指定模块的版本。
         },
       }],
     }),
